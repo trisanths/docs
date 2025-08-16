@@ -12,9 +12,12 @@ Image generation allows you to create high-quality images from text descriptions
 ### Simple Image Generation
 
 ```python
-import cyrionai
+import openai
 
-client = cyrionai.CyrionAI(api_key="your-api-key")
+client = openai.OpenAI(
+    api_key="your-api-key",
+    base_url="https://ai.cyrionlabs.org/v1"
+)
 
 response = client.images.generate(
     model="dall-e-2",
@@ -302,11 +305,11 @@ try:
         model="dall-e-2",
         prompt="A beautiful landscape"
     )
-except cyrionai.ContentPolicyError:
+except openai.ContentPolicyError:
     print("The prompt violates our content policy. Please revise.")
-except cyrionai.RateLimitError:
+except openai.RateLimitError:
     print("Rate limit exceeded. Please wait before making more requests.")
-except cyrionai.APIError as e:
+except openai.APIError as e:
     print(f"API error: {e}")
 ```
 

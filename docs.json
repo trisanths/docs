@@ -17,7 +17,6 @@
           {
             "group": "Getting started",
             "pages": [
-              "index",
               "quickstart",
               "authentication"
             ]
@@ -147,7 +146,7 @@
     "primary": {
       "type": "button",
       "label": "Get API Key",
-      "href": "https://app.cyrionlabs.com"
+      "href": "mailto:grants@cyrionlabs.org"
     }
   },
   "contextual": {

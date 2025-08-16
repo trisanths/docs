@@ -193,9 +193,12 @@ We regularly update our model offerings to provide access to the latest AI capab
 To use any of these models, simply specify the model name in your API requests:
 
 ```python
-import cyrionai
+import openai
 
-client = cyrionai.CyrionAI(api_key="your-api-key")
+client = openai.OpenAI(
+    api_key="your-api-key",
+    base_url="https://ai.cyrionlabs.org/v1"
+)
 
 # Text generation
 response = client.chat.completions.create(

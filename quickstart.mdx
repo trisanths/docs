@@ -4,30 +4,32 @@ description: 'Get started with CyrionAI API in minutes'
 ---
 
 <Steps>
-  <Step title="Sign up for an account">
-    Visit our <Link href="https://app.cyrionlabs.com">application portal</Link> and register your nonprofit organization. You'll need to provide:
+  <Step title="Apply for access">
+    Email **grants@cyrionlabs.org** with:
     
     <ul>
-      <li>Organization name and details</li>
-      <li>Proof of nonprofit status (501(c)(3) or equivalent)</li>
-      <li>Intended use case for AI</li>
+      <li>Proof of your organization's status (501(c)(3) nonprofit, small business / startup, government entity, school, library, etc.)</li>
+      <li>Any other documentation showing your eligibility</li>
+      <li>Brief description of how you plan to use the API</li>
     </ul>
     
-    Once approved, you'll receive your API key instantly.
+    <Note>
+      We support 501(c)(3) nonprofits, government entities, schools, libraries, startups, and other qualifying organizations.
+    </Note>
   </Step>
 
-  <Step title="Install the SDK">
-    Choose your preferred programming language and install our SDK:
+  <Step title="Install the OpenAI package">
+    Install the official OpenAI package:
     
     <Tabs>
       <Tab title="Python">
         ```bash
-        pip install cyrionai
+        pip install openai
         ```
       </Tab>
       <Tab title="Node.js">
         ```bash
-        npm install cyrionai
+        npm install openai
         ```
       </Tab>
       <Tab title="cURL">
@@ -42,9 +44,12 @@ description: 'Get started with CyrionAI API in minutes'
     <Tabs>
       <Tab title="Python">
         ```python
-        import cyrionai
+        import openai
         
-        client = cyrionai.CyrionAI(api_key="your-api-key")
+        client = openai.OpenAI(
+            api_key="your-api-key",
+            base_url="https://ai.cyrionlabs.org/v1"
+        )
         
         response = client.chat.completions.create(
             model="gpt-4o-mini",
@@ -58,10 +63,11 @@ description: 'Get started with CyrionAI API in minutes'
       </Tab>
       <Tab title="Node.js">
         ```javascript
-        const CyrionAI = require('cyrionai');
+        import OpenAI from 'openai';
         
-        const client = new CyrionAI({
-            apiKey: 'your-api-key'
+        const client = new OpenAI({
+            apiKey: 'your-api-key',
+            baseURL: 'https://ai.cyrionlabs.org/v1'
         });
         
         const response = await client.chat.completions.create({
@@ -76,7 +82,7 @@ description: 'Get started with CyrionAI API in minutes'
       </Tab>
       <Tab title="cURL">
         ```bash
-        curl https://api.cyrionlabs.com/v1/chat/completions \
+        curl https://ai.cyrionlabs.org/v1/chat/completions \
           -H "Authorization: Bearer your-api-key" \
           -H "Content-Type: application/json" \
           -d '{
@@ -97,6 +103,14 @@ All API requests require authentication using your API key. Include it in the Au
 
 ```bash
 Authorization: Bearer your-api-key
+```
+
+## Base URL
+
+Use the following base URL for all API requests:
+
+```bash
+https://ai.cyrionlabs.org/v1
 ```
 
 <Note>

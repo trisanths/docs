@@ -12,9 +12,12 @@ Chat completions allow you to generate human-like text responses using state-of-
 ### Simple Chat Completion
 
 ```python
-import cyrionai
+import openai
 
-client = cyrionai.CyrionAI(api_key="your-api-key")
+client = openai.OpenAI(
+    api_key="your-api-key",
+    base_url="https://ai.cyrionlabs.org/v1"
+)
 
 response = client.chat.completions.create(
     model="gpt-4o-mini",
@@ -274,11 +277,11 @@ try:
         model="gpt-4o-mini",
         messages=[{"role": "user", "content": "Hello"}]
     )
-except cyrionai.RateLimitError:
+except openai.RateLimitError:
     print("Rate limit exceeded. Please wait before making more requests.")
-except cyrionai.AuthenticationError:
+except openai.AuthenticationError:
     print("Invalid API key. Please check your credentials.")
-except cyrionai.APIError as e:
+except openai.APIError as e:
     print(f"API error: {e}")
 ```
 

@@ -5,6 +5,12 @@
     "description": "Free AI API for nonprofits powered Cyrion Labs",
     "version": "1.0.0"
   },
+  "servers": [
+    {
+      "url": "https://ai.cyrionlabs.org",
+      "description": "Production server"
+    }
+  ],
   "paths": {
     "/v1/chat/completions": {
       "post": {

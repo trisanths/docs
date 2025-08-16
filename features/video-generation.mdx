@@ -12,9 +12,12 @@ Video generation allows you to create short videos from text descriptions using 
 ### Simple Video Generation
 
 ```python
-import cyrionai
+import openai
 
-client = cyrionai.CyrionAI(api_key="your-api-key")
+client = openai.OpenAI(
+    api_key="your-api-key",
+    base_url="https://ai.cyrionlabs.org/v1"
+)
 
 response = client.videos.generate(
     model="pika-labs",
@@ -240,11 +243,11 @@ try:
         model="pika-labs",
         prompt="A beautiful landscape video"
     )
-except cyrionai.ContentPolicyError:
+except openai.ContentPolicyError:
     print("The prompt violates our content policy. Please revise.")
-except cyrionai.RateLimitError:
+except openai.RateLimitError:
     print("Rate limit exceeded. Please wait before making more requests.")
-except cyrionai.APIError as e:
+except openai.APIError as e:
     print(f"API error: {e}")
 ```
 

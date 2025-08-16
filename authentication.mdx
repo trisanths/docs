@@ -9,9 +9,9 @@ CyrionAI uses API key authentication for all requests. Your API key serves as yo
 
 ## Getting Your API Key
 
-1. **Sign up** at our <Link href="https://app.cyrionlabs.com">application portal</Link>
-2. **Verify your nonprofit status** by providing required documentation
-3. **Receive your API key** instantly upon approval
+1. **Email grants@cyrionlabs.org** with proof of your organization's status
+2. **Provide documentation** showing you're a 501(c)(3) nonprofit, government entity, school, library, etc.
+3. **Receive your API key** upon approval
 
 <Note>
   API keys are generated automatically when your account is approved. You can regenerate your key at any time from your dashboard.
@@ -44,18 +44,22 @@ curl https://api.cyrionlabs.com/v1/chat/completions \
 ### Python
 
 ```python
-import cyrionai
+import openai
 
-client = cyrionai.CyrionAI(api_key="sk-1234567890abcdef")
+client = openai.OpenAI(
+    api_key="sk-1234567890abcdef",
+    base_url="https://ai.cyrionlabs.org/v1"
+)
 ```
 
 ### Node.js
 
 ```javascript
-const CyrionAI = require('cyrionai');
+import OpenAI from 'openai';
 
-const client = new CyrionAI({
-    apiKey: 'sk-1234567890abcdef'
+const client = new OpenAI({
+    apiKey: 'sk-1234567890abcdef',
+    baseURL: 'https://ai.cyrionlabs.org/v1'
 });
 ```
 
@@ -71,17 +75,21 @@ CYRIONAI_API_KEY=sk-1234567890abcdef
 ```python
 # Python
 import os
-import cyrionai
+import openai
 
-client = cyrionai.CyrionAI(api_key=os.getenv('CYRIONAI_API_KEY'))
+client = openai.OpenAI(
+    api_key=os.getenv('CYRIONAI_API_KEY'),
+    base_url="https://ai.cyrionlabs.org/v1"
+)
 ```
 
 ```javascript
 // Node.js
-const CyrionAI = require('cyrionai');
+import OpenAI from 'openai';
 
-const client = new CyrionAI({
-    apiKey: process.env.CYRIONAI_API_KEY
+const client = new OpenAI({
+    apiKey: process.env.CYRIONAI_API_KEY,
+    baseURL: 'https://ai.cyrionlabs.org/v1'
 });
 ```
 
@@ -188,7 +196,7 @@ Your API key determines your rate limits:
 You can test your API key by making a simple request to the models endpoint:
 
 ```bash
-curl https://api.cyrionlabs.com/v1/models \
+curl https://ai.cyrionlabs.org/v1/models \
   -H "Authorization: Bearer your-api-key"
 ```
 

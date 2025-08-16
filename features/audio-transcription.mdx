@@ -12,9 +12,12 @@ Audio transcription allows you to convert speech from audio files into text usin
 ### Simple Audio Transcription
 
 ```python
-import cyrionai
+import openai
 
-client = cyrionai.CyrionAI(api_key="your-api-key")
+client = openai.OpenAI(
+    api_key="your-api-key",
+    base_url="https://ai.cyrionlabs.org/v1"
+)
 
 # Transcribe an audio file
 with open("meeting_recording.mp3", "rb") as audio_file:
@@ -327,11 +330,11 @@ try:
             model="whisper-1",
             file=audio_file
         )
-except cyrionai.InvalidRequestError:
+except openai.InvalidRequestError:
     print("Invalid audio file or format.")
-except cyrionai.RateLimitError:
+except openai.RateLimitError:
     print("Rate limit exceeded. Please wait before making more requests.")
-except cyrionai.APIError as e:
+except openai.APIError as e:
     print(f"API error: {e}")
 ```
 
