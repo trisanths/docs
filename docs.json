@@ -122,7 +122,7 @@
         },
         {
           "anchor": "Blog",
-          "href": "https://blog.cyrionlabs.com",
+          "href": "https://cyrionlabs.org",
           "icon": "newspaper"
         }
       ]
@@ -140,7 +140,7 @@
       },
       {
         "label": "Status",
-        "href": "https://status.cyrionlabs.com"
+        "href": "https://status.cyrionlabs.org"
       }
     ],
     "primary": {
