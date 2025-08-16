@@ -1,0 +1,350 @@
+---
+title: 'Chat Completions'
+description: 'Generate human-like text responses with GPT-4, Claude, and other models'
+---
+
+## Overview
+
+Chat completions allow you to generate human-like text responses using state-of-the-art language models. CyrionAI provides access to multiple models including GPT-4, Claude-3, and others through a unified API.
+
+## Basic Usage
+
+### Simple Chat Completion
+
+```python
+import cyrionai
+
+client = cyrionai.CyrionAI(api_key="your-api-key")
+
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "user", "content": "What are the benefits of AI for nonprofits?"}
+    ]
+)
+
+print(response.choices[0].message.content)
+```
+
+### Multi-turn Conversation
+
+```python
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant for nonprofit organizations."},
+        {"role": "user", "content": "How can we improve our fundraising strategy?"},
+        {"role": "assistant", "content": "There are several ways to improve fundraising..."},
+        {"role": "user", "content": "Can you provide specific examples for small nonprofits?"}
+    ]
+)
+```
+
+## Message Roles
+
+### System Message
+Sets the behavior and context for the conversation:
+
+```python
+{"role": "system", "content": "You are an expert grant writer helping nonprofits secure funding."}
+```
+
+### User Message
+Represents input from the user:
+
+```python
+{"role": "user", "content": "Write a grant proposal for a youth education program."}
+```
+
+### Assistant Message
+Represents responses from the AI model:
+
+```python
+{"role": "assistant", "content": "Here's a draft grant proposal..."}
+```
+
+## Parameters
+
+### Required Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `model` | string | The model to use (e.g., "gpt-4o-mini", "claude-3-sonnet") |
+| `messages` | array | Array of message objects with role and content |
+
+### Optional Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `max_tokens` | integer | null | Maximum number of tokens to generate |
+| `temperature` | number | 1.0 | Controls randomness (0-2) |
+| `top_p` | number | 1.0 | Controls diversity via nucleus sampling (0-1) |
+| `n` | integer | 1 | Number of completions to generate |
+| `stop` | string/array | null | Stop sequences |
+| `presence_penalty` | number | 0.0 | Penalty for new topics (-2 to 2) |
+| `frequency_penalty` | number | 0.0 | Penalty for repetition (-2 to 2) |
+| `user` | string | null | User identifier for tracking |
+
+### Temperature
+
+Controls the randomness of the output:
+
+```python
+# More creative and varied responses
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": "Write a creative story"}],
+    temperature=0.8
+)
+
+# More focused and deterministic responses
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": "Explain quantum physics"}],
+    temperature=0.1
+)
+```
+
+### Max Tokens
+
+Limit the length of the response:
+
+```python
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": "Summarize the benefits of AI"}],
+    max_tokens=150  # Limit to 150 tokens
+)
+```
+
+## Supported Models
+
+### GPT Models
+
+| Model | Description | Best For |
+|-------|-------------|----------|
+| `gpt-4o-mini` | Fast and efficient | General tasks, quick responses |
+| `gpt-4o` | Most capable | Complex reasoning, creative writing |
+| `gpt-3.5-turbo` | Legacy model | Simple tasks, cost-effective |
+
+### Claude Models
+
+| Model | Description | Best For |
+|-------|-------------|----------|
+| `claude-3-haiku` | Fast and efficient | Quick responses, simple tasks |
+| `claude-3-sonnet` | Balanced performance | General purpose, good reasoning |
+| `claude-3-opus` | Most capable | Complex analysis, creative writing |
+
+### Other Models
+
+| Model | Description | Best For |
+|-------|-------------|----------|
+| `llama-3-8b` | Open source | Custom applications, fine-tuning |
+| `llama-3-70b` | Large open source | Complex reasoning, research |
+
+## Advanced Features
+
+### Function Calling
+
+```python
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": "What's the weather in San Francisco?"}],
+    tools=[
+        {
+            "type": "function",
+            "function": {
+                "name": "get_weather",
+                "description": "Get current weather for a location",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "location": {"type": "string", "description": "City name"}
+                    },
+                    "required": ["location"]
+                }
+            }
+        }
+    ]
+)
+```
+
+### Web Search
+
+Enable web search for up-to-date information:
+
+```python
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": "What are the latest AI developments?"}],
+    web_search=True
+)
+```
+
+### Image Understanding
+
+Include images in your conversations:
+
+```python
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": "What's in this image?"},
+                {"type": "image_url", "image_url": {"url": "data:image/jpeg;base64,..."}}
+            ]
+        }
+    ]
+)
+```
+
+## Best Practices
+
+### 1. Use System Messages Effectively
+
+```python
+# Good: Clear, specific system message
+messages = [
+    {"role": "system", "content": "You are a grant writing expert. Provide specific, actionable advice for nonprofit organizations."},
+    {"role": "user", "content": "Help me write a grant proposal"}
+]
+
+# Avoid: Vague or overly complex system messages
+messages = [
+    {"role": "system", "content": "Be helpful and nice"},
+    {"role": "user", "content": "Help me write a grant proposal"}
+]
+```
+
+### 2. Manage Conversation Context
+
+```python
+# Keep conversations focused and within token limits
+messages = [
+    {"role": "system", "content": "You are a nonprofit consultant."},
+    {"role": "user", "content": "How can we improve our volunteer program?"}
+]
+
+# Add follow-up questions as new user messages
+messages.append({"role": "assistant", "content": "Here are some strategies..."})
+messages.append({"role": "user", "content": "Can you elaborate on the training aspect?"})
+```
+
+### 3. Use Appropriate Temperature
+
+```python
+# Low temperature for factual, consistent responses
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": "Explain the tax benefits for 501(c)(3) organizations"}],
+    temperature=0.1
+)
+
+# Higher temperature for creative tasks
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": "Write a creative fundraising campaign slogan"}],
+    temperature=0.8
+)
+```
+
+### 4. Handle Long Conversations
+
+```python
+# For long conversations, consider summarizing or truncating context
+def summarize_conversation(messages):
+    # Implement conversation summarization logic
+    pass
+
+# Use the summary as context for new requests
+summary = summarize_conversation(previous_messages)
+messages = [
+    {"role": "system", "content": f"Previous conversation summary: {summary}"},
+    {"role": "user", "content": "Continue our discussion about fundraising"}
+]
+```
+
+## Error Handling
+
+```python
+try:
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": "Hello"}]
+    )
+except cyrionai.RateLimitError:
+    print("Rate limit exceeded. Please wait before making more requests.")
+except cyrionai.AuthenticationError:
+    print("Invalid API key. Please check your credentials.")
+except cyrionai.APIError as e:
+    print(f"API error: {e}")
+```
+
+## Response Format
+
+```python
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": "Hello"}]
+)
+
+# Access response data
+print(response.id)  # Unique response ID
+print(response.model)  # Model used
+print(response.choices[0].message.content)  # Generated text
+print(response.usage.prompt_tokens)  # Input tokens
+print(response.usage.completion_tokens)  # Output tokens
+print(response.usage.total_tokens)  # Total tokens
+```
+
+## Examples
+
+### Grant Writing Assistant
+
+```python
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "system", "content": "You are an expert grant writer with 20 years of experience helping nonprofits secure funding."},
+        {"role": "user", "content": "Write a compelling needs statement for a youth mentoring program seeking $50,000 in funding."}
+    ],
+    temperature=0.3,
+    max_tokens=500
+)
+```
+
+### Donor Communication
+
+```python
+response = client.chat.completions.create(
+    model="claude-3-sonnet",
+    messages=[
+        {"role": "system", "content": "You are a nonprofit communications specialist. Write warm, personal messages that connect with donors."},
+        {"role": "user", "content": "Write a thank you email to a donor who just gave $1,000 to our animal shelter."}
+    ],
+    temperature=0.7
+)
+```
+
+### Program Evaluation
+
+```python
+response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[
+        {"role": "system", "content": "You are a nonprofit evaluation expert. Help organizations measure their impact effectively."},
+        {"role": "user", "content": "Design an evaluation framework for a literacy program serving elementary school students."}
+    ],
+    temperature=0.2,
+    max_tokens=800
+)
+```
+
+## Next Steps
+
+- Learn about <Link href="/features/image-generation">image generation</Link>
+- Explore <Link href="/features/video-generation">video generation</Link>
+- Check out <Link href="/examples/chat-examples">more chat examples</Link>
+- View the <Link href="/api-reference/chat-completions">API reference</Link>

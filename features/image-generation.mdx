@@ -1,0 +1,381 @@
+---
+title: 'Image Generation'
+description: 'Create stunning images from text descriptions using DALL-E 2 and other models'
+---
+
+## Overview
+
+Image generation allows you to create high-quality images from text descriptions using state-of-the-art AI models. CyrionAI provides access to multiple image generation models including DALL-E 2, Stable Diffusion, and others.
+
+## Basic Usage
+
+### Simple Image Generation
+
+```python
+import cyrionai
+
+client = cyrionai.CyrionAI(api_key="your-api-key")
+
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A serene landscape with mountains and a lake at sunset",
+    n=1,
+    size="1024x1024"
+)
+
+print(response.data[0].url)  # URL to the generated image
+```
+
+### Multiple Images
+
+```python
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A nonprofit volunteer helping children in a community garden",
+    n=4,  # Generate 4 variations
+    size="1024x1024"
+)
+
+for i, image in enumerate(response.data):
+    print(f"Image {i+1}: {image.url}")
+```
+
+## Parameters
+
+### Required Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `prompt` | string | Text description of the image you want to generate |
+
+### Optional Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `model` | string | "dall-e-2" | The model to use for generation |
+| `n` | integer | 1 | Number of images to generate (1-10) |
+| `size` | string | "1024x1024" | Image dimensions |
+| `quality` | string | "standard" | Image quality ("standard" or "hd") |
+| `response_format` | string | "url" | Response format ("url" or "b64_json") |
+| `user` | string | null | User identifier for tracking |
+
+## Supported Models
+
+### DALL-E 2
+
+The most popular and reliable image generation model:
+
+```python
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A modern office space with plants and natural lighting",
+    size="1024x1024"
+)
+```
+
+### Stable Diffusion
+
+Open-source model with good artistic capabilities:
+
+```python
+response = client.images.generate(
+    model="stable-diffusion-xl",
+    prompt="An artistic painting of a forest in autumn colors",
+    size="1024x1024"
+)
+```
+
+### Midjourney
+
+High-quality artistic model:
+
+```python
+response = client.images.generate(
+    model="midjourney",
+    prompt="A cinematic shot of a nonprofit team working together",
+    size="1024x1024"
+)
+```
+
+## Image Sizes
+
+Different models support different image sizes:
+
+| Model | Supported Sizes |
+|-------|----------------|
+| DALL-E 2 | 256x256, 512x512, 1024x1024 |
+| Stable Diffusion | 512x512, 768x768, 1024x1024 |
+| Midjourney | 1024x1024, 1792x1024, 1024x1792 |
+
+### Square Images
+
+```python
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A logo design for a nonprofit organization",
+    size="1024x1024"
+)
+```
+
+### Landscape Images
+
+```python
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A wide landscape showing a community garden",
+    size="1792x1024"
+)
+```
+
+### Portrait Images
+
+```python
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A portrait of a volunteer helping others",
+    size="1024x1792"
+)
+```
+
+## Quality Settings
+
+### Standard Quality
+
+```python
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A professional headshot for a nonprofit executive",
+    quality="standard"
+)
+```
+
+### High Definition
+
+```python
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A detailed illustration for a fundraising campaign",
+    quality="hd"
+)
+```
+
+## Response Formats
+
+### URL Format (Default)
+
+```python
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A beautiful sunset over mountains",
+    response_format="url"
+)
+
+image_url = response.data[0].url
+print(f"Image URL: {image_url}")
+```
+
+### Base64 Format
+
+```python
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A beautiful sunset over mountains",
+    response_format="b64_json"
+)
+
+import base64
+image_data = base64.b64decode(response.data[0].b64_json)
+
+with open("generated_image.png", "wb") as f:
+    f.write(image_data)
+```
+
+## Best Practices
+
+### 1. Write Clear, Descriptive Prompts
+
+```python
+# Good: Specific and descriptive
+prompt = "A diverse group of volunteers working together in a community garden, with bright sunlight, modern photography style"
+
+# Avoid: Vague or unclear
+prompt = "People helping"
+```
+
+### 2. Include Style and Context
+
+```python
+# Include artistic style
+prompt = "A watercolor painting of children playing in a park, soft colors, artistic style"
+
+# Include photography style
+prompt = "A professional photograph of a nonprofit team meeting, modern office, natural lighting"
+```
+
+### 3. Specify Composition and Perspective
+
+```python
+# Specify camera angle
+prompt = "A bird's eye view of a community event with many people gathered"
+
+# Specify composition
+prompt = "A close-up portrait of a volunteer with a warm smile, shallow depth of field"
+```
+
+### 4. Use Appropriate Models for Different Styles
+
+```python
+# For realistic photos
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A professional photograph of a nonprofit board meeting"
+)
+
+# For artistic illustrations
+response = client.images.generate(
+    model="midjourney",
+    prompt="An artistic illustration of hope and community"
+)
+```
+
+## Common Use Cases
+
+### Marketing Materials
+
+```python
+# Social media posts
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="An eye-catching social media graphic promoting volunteer opportunities, modern design, bright colors",
+    size="1024x1024"
+)
+
+# Website banners
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A wide banner image showing diverse volunteers working together, professional photography",
+    size="1792x1024"
+)
+```
+
+### Educational Content
+
+```python
+# Infographics
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="An educational infographic about climate change, clean design, easy to read",
+    size="1024x1024"
+)
+
+# Presentation slides
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A professional slide background for a nonprofit presentation, subtle design",
+    size="1024x1024"
+)
+```
+
+### Fundraising Campaigns
+
+```python
+# Campaign imagery
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="An emotional image showing the impact of donations, heartwarming, professional photography",
+    size="1024x1024"
+)
+
+# Event promotion
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A festive fundraising gala, elegant atmosphere, professional event photography",
+    size="1024x1024"
+)
+```
+
+## Error Handling
+
+```python
+try:
+    response = client.images.generate(
+        model="dall-e-2",
+        prompt="A beautiful landscape"
+    )
+except cyrionai.ContentPolicyError:
+    print("The prompt violates our content policy. Please revise.")
+except cyrionai.RateLimitError:
+    print("Rate limit exceeded. Please wait before making more requests.")
+except cyrionai.APIError as e:
+    print(f"API error: {e}")
+```
+
+## Content Policy
+
+CyrionAI has content policies to ensure responsible use:
+
+### Allowed Content
+- Professional and educational images
+- Marketing and promotional materials
+- Artistic and creative content
+- Nonprofit and community-focused imagery
+
+### Prohibited Content
+- Harmful or violent content
+- Copyrighted material
+- Personal information
+- Inappropriate or offensive content
+
+## Response Format
+
+```python
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A beautiful sunset"
+)
+
+# Access response data
+print(response.created)  # Timestamp
+print(response.data[0].url)  # Image URL
+print(response.data[0].revised_prompt)  # AI-revised prompt (if any)
+```
+
+## Examples
+
+### Nonprofit Logo Design
+
+```python
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A modern, minimalist logo design for a youth mentoring nonprofit, clean lines, professional",
+    size="1024x1024",
+    quality="hd"
+)
+```
+
+### Volunteer Photography
+
+```python
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A diverse group of volunteers building homes for families in need, professional photography, natural lighting",
+    size="1792x1024"
+)
+```
+
+### Educational Illustration
+
+```python
+response = client.images.generate(
+    model="midjourney",
+    prompt="An educational illustration showing the water cycle, colorful, child-friendly, scientific accuracy",
+    size="1024x1024"
+)
+```
+
+## Next Steps
+
+- Learn about <Link href="/features/image-variations">image variations</Link>
+- Explore <Link href="/features/video-generation">video generation</Link>
+- Check out <Link href="/examples/image-examples">more image examples</Link>
+- View the <Link href="/api-reference/image-generation">API reference</Link>

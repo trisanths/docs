@@ -1,11 +1,12 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "CyrionAI API",
+  "description": "Free AI API for nonprofits powered by Cyrion Labs",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#6366F1",
+    "light": "#8B5CF6",
+    "dark": "#4F46E5"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -18,31 +19,32 @@
             "pages": [
               "index",
               "quickstart",
-              "development"
+              "authentication"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Core features",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "features/chat-completions",
+              "features/image-generation",
+              "features/video-generation",
+              "features/audio-transcription"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Models",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "models/available-models",
+              "models/model-comparison"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Examples",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "examples/chat-examples",
+              "examples/image-examples",
+              "examples/video-examples",
+              "examples/audio-examples"
             ]
           }
         ]
@@ -51,18 +53,57 @@
         "tab": "API reference",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Core endpoints",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/chat-completions",
+              "api-reference/image-generation",
+              "api-reference/image-variations",
+              "api-reference/video-generation",
+              "api-reference/audio-transcription",
+              "api-reference/models"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Admin endpoints",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/admin/users",
+              "api-reference/admin/grants",
+              "api-reference/admin/usage",
+              "api-reference/admin/health"
+            ]
+          },
+          {
+            "group": "Monitoring",
+            "pages": [
+              "api-reference/monitoring/health",
+              "api-reference/monitoring/metrics"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Resources",
+        "groups": [
+          {
+            "group": "SDKs & Libraries",
+            "pages": [
+              "resources/sdks",
+              "resources/libraries"
+            ]
+          },
+          {
+            "group": "Tools",
+            "pages": [
+              "resources/tools",
+              "resources/integrations"
+            ]
+          },
+          {
+            "group": "Support",
+            "pages": [
+              "resources/support",
+              "resources/faq",
+              "resources/changelog"
             ]
           }
         ]
@@ -71,18 +112,18 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "GitHub",
+          "href": "https://github.com/cyrionlabs",
+          "icon": "github"
         },
         {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
+          "anchor": "Discord",
+          "href": "https://discord.gg/cyrionlabs",
+          "icon": "discord"
         },
         {
           "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
+          "href": "https://blog.cyrionlabs.com",
           "icon": "newspaper"
         }
       ]
@@ -96,13 +137,17 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:support@cyrionlabs.com"
+      },
+      {
+        "label": "Status",
+        "href": "https://status.cyrionlabs.com"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Get API Key",
+      "href": "https://app.cyrionlabs.com"
     }
   },
   "contextual": {
@@ -119,9 +164,9 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/cyrionlabs",
+      "github": "https://github.com/cyrionlabs",
+      "linkedin": "https://linkedin.com/company/cyrionlabs"
     }
   }
 }

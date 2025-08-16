@@ -1,0 +1,485 @@
+---
+title: 'Audio Transcription'
+description: 'Convert audio files to text using Whisper models'
+---
+
+## Overview
+
+Audio transcription allows you to convert speech from audio files into text using state-of-the-art AI models. CyrionAI provides access to Whisper models for accurate, multilingual transcription.
+
+## Basic Usage
+
+### Simple Audio Transcription
+
+```python
+import cyrionai
+
+client = cyrionai.CyrionAI(api_key="your-api-key")
+
+# Transcribe an audio file
+with open("meeting_recording.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file
+    )
+
+print(response.text)  # Transcribed text
+```
+
+### Transcription with Language Specification
+
+```python
+with open("spanish_interview.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        language="es"  # Spanish
+    )
+
+print(response.text)
+```
+
+## Parameters
+
+### Required Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `file` | file | The audio file to transcribe (MP3, MP4, M4A, WAV, etc.) |
+
+### Optional Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `model` | string | "whisper-1" | The model to use for transcription |
+| `language` | string | null | Language code (e.g., "en", "es", "fr") |
+| `prompt` | string | null | Contextual prompt to improve accuracy |
+| `response_format` | string | "json" | Response format ("json", "text", "srt", "verbose_json") |
+| `temperature` | number | 0 | Controls randomness (0-1) |
+
+## Supported Audio Formats
+
+CyrionAI supports a wide range of audio formats:
+
+| Format | Extension | Description |
+|--------|-----------|-------------|
+| MP3 | .mp3 | Most common audio format |
+| MP4 | .mp4 | Video files (audio will be extracted) |
+| M4A | .m4a | Apple audio format |
+| WAV | .wav | Uncompressed audio |
+| FLAC | .flac | Lossless audio |
+| OGG | .ogg | Open source audio format |
+
+## File Size Limits
+
+- **Maximum file size:** 25 MB
+- **Recommended duration:** Up to 60 minutes
+- **Supported languages:** 99+ languages
+
+## Language Support
+
+### Automatic Language Detection
+
+```python
+# Let the model detect the language automatically
+with open("audio.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file
+    )
+```
+
+### Specify Language
+
+```python
+# Specify the language for better accuracy
+with open("french_meeting.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        language="fr"  # French
+    )
+```
+
+### Common Language Codes
+
+| Language | Code | Language | Code |
+|----------|------|----------|------|
+| English | en | Spanish | es |
+| French | fr | German | de |
+| Italian | it | Portuguese | pt |
+| Russian | ru | Chinese | zh |
+| Japanese | ja | Korean | ko |
+| Arabic | ar | Hindi | hi |
+
+## Response Formats
+
+### JSON Format (Default)
+
+```python
+with open("meeting.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        response_format="json"
+    )
+
+print(response.text)  # Transcribed text
+```
+
+### Text Format
+
+```python
+with open("meeting.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        response_format="text"
+    )
+
+print(response)  # Plain text
+```
+
+### SRT Format (Subtitles)
+
+```python
+with open("meeting.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        response_format="srt"
+    )
+
+print(response)  # SRT subtitle format
+```
+
+### Verbose JSON Format
+
+```python
+with open("meeting.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        response_format="verbose_json"
+    )
+
+# Access detailed information
+print(response.text)  # Transcribed text
+print(response.language)  # Detected language
+print(response.duration)  # Audio duration
+print(response.segments)  # Timestamped segments
+```
+
+## Using Prompts
+
+### Contextual Prompts
+
+Provide context to improve transcription accuracy:
+
+```python
+with open("technical_meeting.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        prompt="This is a technical meeting about software development and AI implementation."
+    )
+```
+
+### Specialized Vocabulary
+
+```python
+with open("medical_interview.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        prompt="This conversation includes medical terminology, drug names, and clinical procedures."
+    )
+```
+
+### Names and Proper Nouns
+
+```python
+with open("interview.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        prompt="The speaker's name is Dr. Sarah Johnson, and they work at the Community Health Center."
+    )
+```
+
+## Best Practices
+
+### 1. Audio Quality
+
+```python
+# Good: Clear audio with minimal background noise
+# - Use high-quality microphones
+# - Record in quiet environments
+# - Ensure proper audio levels
+
+# Avoid: Poor audio quality
+# - Background noise and echo
+# - Low volume or clipping
+# - Multiple speakers talking simultaneously
+```
+
+### 2. File Preparation
+
+```python
+# Ensure file is within size limits
+import os
+
+file_size = os.path.getsize("audio.mp3") / (1024 * 1024)  # Size in MB
+if file_size > 25:
+    print("File is too large. Please compress or split the audio.")
+```
+
+### 3. Language Specification
+
+```python
+# Specify language when known for better accuracy
+with open("spanish_meeting.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        language="es"  # Better accuracy than auto-detection
+    )
+```
+
+### 4. Use Appropriate Prompts
+
+```python
+# Provide relevant context
+prompt = "This is a nonprofit board meeting discussing fundraising strategies and community outreach programs."
+
+with open("board_meeting.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        prompt=prompt
+    )
+```
+
+## Common Use Cases
+
+### Meeting Transcription
+
+```python
+# Transcribe board meetings
+with open("board_meeting.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        prompt="This is a nonprofit board meeting with discussions about budgets, programs, and strategic planning."
+    )
+
+# Save transcription to file
+with open("meeting_transcript.txt", "w") as f:
+    f.write(response.text)
+```
+
+### Interview Transcription
+
+```python
+# Transcribe donor interviews
+with open("donor_interview.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        prompt="This is an interview with a major donor discussing their philanthropic goals and giving history."
+    )
+```
+
+### Training Content
+
+```python
+# Transcribe volunteer training sessions
+with open("training_session.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        prompt="This is a volunteer training session covering safety procedures and program guidelines."
+    )
+```
+
+### Podcast Transcription
+
+```python
+# Transcribe nonprofit podcasts
+with open("podcast_episode.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        response_format="srt"  # Generate subtitles
+    )
+
+# Save as SRT file for video platforms
+with open("podcast_subtitles.srt", "w") as f:
+    f.write(response)
+```
+
+## Error Handling
+
+```python
+try:
+    with open("audio.mp3", "rb") as audio_file:
+        response = client.audio.transcriptions.create(
+            model="whisper-1",
+            file=audio_file
+        )
+except cyrionai.InvalidRequestError:
+    print("Invalid audio file or format.")
+except cyrionai.RateLimitError:
+    print("Rate limit exceeded. Please wait before making more requests.")
+except cyrionai.APIError as e:
+    print(f"API error: {e}")
+```
+
+## Advanced Features
+
+### Batch Processing
+
+```python
+import os
+
+audio_files = ["meeting1.mp3", "meeting2.mp3", "meeting3.mp3"]
+transcriptions = []
+
+for file_name in audio_files:
+    with open(file_name, "rb") as audio_file:
+        response = client.audio.transcriptions.create(
+            model="whisper-1",
+            file=audio_file
+        )
+        transcriptions.append({
+            "file": file_name,
+            "text": response.text
+        })
+
+# Save all transcriptions
+for transcript in transcriptions:
+    output_file = transcript["file"].replace(".mp3", "_transcript.txt")
+    with open(output_file, "w") as f:
+        f.write(transcript["text"])
+```
+
+### Timestamped Segments
+
+```python
+with open("long_meeting.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        response_format="verbose_json"
+    )
+
+# Access timestamped segments
+for segment in response.segments:
+    start_time = segment.start
+    end_time = segment.end
+    text = segment.text
+    print(f"[{start_time:.2f}s - {end_time:.2f}s] {text}")
+```
+
+### Language Detection
+
+```python
+with open("unknown_language.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        response_format="verbose_json"
+    )
+
+print(f"Detected language: {response.language}")
+print(f"Transcribed text: {response.text}")
+```
+
+## Examples
+
+### Nonprofit Board Meeting
+
+```python
+with open("board_meeting.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        prompt="This is a nonprofit board meeting discussing quarterly financial reports, upcoming fundraising events, and strategic planning for community programs.",
+        response_format="verbose_json"
+    )
+
+# Create meeting minutes
+with open("meeting_minutes.txt", "w") as f:
+    f.write("BOARD MEETING TRANSCRIPT\n")
+    f.write("=" * 50 + "\n\n")
+    f.write(response.text)
+```
+
+### Volunteer Training Session
+
+```python
+with open("training.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        prompt="This is a volunteer training session covering safety protocols, program guidelines, and volunteer responsibilities.",
+        response_format="srt"
+    )
+
+# Save as training documentation
+with open("training_subtitles.srt", "w") as f:
+    f.write(response)
+```
+
+### Donor Interview
+
+```python
+with open("donor_interview.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file,
+        prompt="This is an interview with a major donor discussing their philanthropic interests, giving history, and future donation plans.",
+        response_format="json"
+    )
+
+# Create donor profile
+donor_notes = f"""
+DONOR INTERVIEW NOTES
+====================
+Date: {datetime.now().strftime('%Y-%m-%d')}
+Interviewer: Development Team
+
+Key Points:
+{response.text}
+
+Action Items:
+- Follow up on discussed donation opportunities
+- Send thank you letter
+- Schedule follow-up meeting
+"""
+
+with open("donor_notes.txt", "w") as f:
+    f.write(donor_notes)
+```
+
+## Performance Considerations
+
+### Processing Time
+- Transcription typically takes 30-60 seconds per minute of audio
+- Processing time varies by file size and complexity
+
+### Rate Limits
+- Audio transcription: 50 requests per minute
+- Plan accordingly for batch processing
+
+### File Optimization
+- Compress audio files to reduce upload time
+- Use appropriate audio formats (MP3 recommended)
+- Ensure good audio quality for better accuracy
+
+## Next Steps
+
+- Learn about <Link href="/features/chat-completions">chat completions</Link>
+- Explore <Link href="/features/image-generation">image generation</Link>
+- Check out <Link href="/examples/audio-examples">more audio examples</Link>
+- View the <Link href="/api-reference/audio-transcription">API reference</Link>

@@ -1,0 +1,236 @@
+---
+title: 'Available Models'
+description: 'Complete list of AI models available through CyrionAI API'
+---
+
+## Overview
+
+CyrionAI provides access to a wide range of state-of-the-art AI models across different modalities. All models are available at no cost for qualified nonprofit organizations.
+
+## Text Models
+
+### GPT Models
+
+| Model | Description | Best For | Context Window | Cost |
+|-------|-------------|----------|----------------|------|
+| `gpt-4o-mini` | Fast and efficient GPT-4 model | General tasks, quick responses | 128K tokens | Free |
+| `gpt-4o` | Most capable GPT-4 model | Complex reasoning, creative writing | 128K tokens | Free |
+| `gpt-3.5-turbo` | Legacy model | Simple tasks, cost-effective | 16K tokens | Free |
+
+### Claude Models
+
+| Model | Description | Best For | Context Window | Cost |
+|-------|-------------|----------|----------------|------|
+| `claude-3-haiku` | Fast and efficient Claude model | Quick responses, simple tasks | 200K tokens | Free |
+| `claude-3-sonnet` | Balanced performance Claude model | General purpose, good reasoning | 200K tokens | Free |
+| `claude-3-opus` | Most capable Claude model | Complex analysis, creative writing | 200K tokens | Free |
+
+### Open Source Models
+
+| Model | Description | Best For | Context Window | Cost |
+|-------|-------------|----------|----------------|------|
+| `llama-3-8b` | Meta's Llama 3 8B model | Custom applications, fine-tuning | 8K tokens | Free |
+| `llama-3-70b` | Meta's Llama 3 70B model | Complex reasoning, research | 8K tokens | Free |
+| `mistral-7b` | Mistral AI's 7B model | General purpose, efficient | 32K tokens | Free |
+
+## Image Models
+
+### DALL-E Models
+
+| Model | Description | Best For | Resolution | Cost |
+|-------|-------------|----------|------------|------|
+| `dall-e-2` | OpenAI's DALL-E 2 model | High-quality realistic images | 1024x1024 | Free |
+| `dall-e-3` | OpenAI's DALL-E 3 model | Most advanced image generation | 1024x1024 | Free |
+
+### Stable Diffusion Models
+
+| Model | Description | Best For | Resolution | Cost |
+|-------|-------------|----------|------------|------|
+| `stable-diffusion-xl` | Stability AI's SDXL model | Artistic and creative images | 1024x1024 | Free |
+| `stable-diffusion-2.1` | Stable Diffusion 2.1 | General image generation | 768x768 | Free |
+
+### Other Image Models
+
+| Model | Description | Best For | Resolution | Cost |
+|-------|-------------|----------|------------|------|
+| `midjourney` | Midjourney model | High-quality artistic images | 1024x1024 | Free |
+| `flux` | Flux model | Fast image generation | 1024x1024 | Free |
+
+## Video Models
+
+| Model | Description | Best For | Duration | Cost |
+|-------|-------------|----------|----------|------|
+| `pika-labs` | Pika Labs model | High-quality video generation | 3-10 seconds | Free |
+| `runway-ml` | Runway ML model | Cinematic quality videos | 3-10 seconds | Free |
+| `stable-video-diffusion` | Stable Video Diffusion | Open-source video generation | 3-10 seconds | Free |
+
+## Audio Models
+
+| Model | Description | Best For | Languages | Cost |
+|-------|-------------|----------|-----------|------|
+| `whisper-1` | OpenAI's Whisper model | Audio transcription | 99+ languages | Free |
+| `whisper-large-v3` | Large Whisper model | High-accuracy transcription | 99+ languages | Free |
+
+## Model Capabilities
+
+### Text Generation Features
+
+- **Function Calling**: Available on GPT-4 and Claude models
+- **Web Search**: Available on GPT-4 models
+- **Image Understanding**: Available on GPT-4 models
+- **Multimodal Input**: Support for text, images, and other media
+- **Tool Integration**: Ability to call external tools and APIs
+
+### Image Generation Features
+
+- **Multiple Sizes**: Support for various aspect ratios and resolutions
+- **Quality Options**: Standard and HD quality settings
+- **Style Control**: Ability to specify artistic styles and techniques
+- **Variation Generation**: Create multiple variations from a single prompt
+
+### Video Generation Features
+
+- **Motion Control**: Specify camera movements and actions
+- **Style Transfer**: Apply different visual styles to videos
+- **Duration Control**: Generate videos of varying lengths
+- **Quality Options**: Different quality settings available
+
+### Audio Transcription Features
+
+- **Multilingual Support**: 99+ languages supported
+- **Language Detection**: Automatic language identification
+- **Timestamp Support**: Get word-level timestamps
+- **Format Options**: JSON, text, SRT, and verbose JSON outputs
+
+## Model Selection Guide
+
+### For Text Generation
+
+**Choose GPT-4o-mini if:**
+- You need fast responses
+- Working with simple tasks
+- Cost efficiency is important
+
+**Choose GPT-4o if:**
+- You need the highest quality responses
+- Working on complex reasoning tasks
+- Creative writing is required
+
+**Choose Claude-3-sonnet if:**
+- You need balanced performance
+- Working on analytical tasks
+- Want good reasoning capabilities
+
+### For Image Generation
+
+**Choose DALL-E 2 if:**
+- You need realistic, high-quality images
+- Working on professional content
+- Want reliable, consistent results
+
+**Choose Stable Diffusion if:**
+- You need artistic, creative images
+- Want more control over style
+- Working on experimental content
+
+**Choose Midjourney if:**
+- You need highly artistic images
+- Working on creative projects
+- Want unique visual styles
+
+### For Video Generation
+
+**Choose Pika Labs if:**
+- You need high-quality video generation
+- Want good motion and consistency
+- Working on professional content
+
+**Choose Runway ML if:**
+- You need cinematic quality
+- Working on documentary-style content
+- Want professional video output
+
+### For Audio Transcription
+
+**Choose Whisper-1 if:**
+- You need general transcription
+- Working with common languages
+- Want fast processing
+
+**Choose Whisper-large-v3 if:**
+- You need high accuracy
+- Working with complex audio
+- Want better handling of accents and noise
+
+## Rate Limits
+
+All models have generous rate limits for nonprofit organizations:
+
+| Model Type | Rate Limit | Notes |
+|------------|------------|-------|
+| Text Models | 100 requests/minute | Per API key |
+| Image Models | 20 requests/minute | Per API key |
+| Video Models | 10 requests/minute | Per API key |
+| Audio Models | 50 requests/minute | Per API key |
+
+<Note>
+  Rate limits are per API key. Contact us if you need higher limits for your specific use case.
+</Note>
+
+## Model Updates
+
+We regularly update our model offerings to provide access to the latest AI capabilities. New models are added automatically to your account at no additional cost.
+
+### Recent Updates
+
+- **GPT-4o-mini**: Added for faster, more efficient text generation
+- **Claude-3 models**: Added for enhanced reasoning capabilities
+- **DALL-E 3**: Added for improved image generation quality
+- **Video models**: Added for video generation capabilities
+
+## Getting Started
+
+To use any of these models, simply specify the model name in your API requests:
+
+```python
+import cyrionai
+
+client = cyrionai.CyrionAI(api_key="your-api-key")
+
+# Text generation
+response = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": "Hello!"}]
+)
+
+# Image generation
+response = client.images.generate(
+    model="dall-e-2",
+    prompt="A beautiful sunset"
+)
+
+# Video generation
+response = client.videos.generate(
+    model="pika-labs",
+    prompt="A peaceful landscape"
+)
+
+# Audio transcription
+with open("audio.mp3", "rb") as audio_file:
+    response = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=audio_file
+    )
+```
+
+## Model Comparison
+
+For detailed comparisons between models, see our <Link href="/models/model-comparison">Model Comparison Guide</Link>.
+
+## Need Help?
+
+If you're unsure which model to use for your specific use case:
+
+- Check our <Link href="/examples">examples</Link> for common use cases
+- Contact <Link href="mailto:support@cyrionlabs.com">support</Link> for personalized recommendations
+- Join our <Link href="https://discord.gg/cyrionlabs">Discord community</Link> for discussions

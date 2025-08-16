@@ -1,0 +1,398 @@
+---
+title: 'Video Generation'
+description: 'Generate short videos from text prompts with our advanced video models'
+---
+
+## Overview
+
+Video generation allows you to create short videos from text descriptions using cutting-edge AI models. CyrionAI provides access to multiple video generation models including Pika Labs, Runway ML, and others.
+
+## Basic Usage
+
+### Simple Video Generation
+
+```python
+import cyrionai
+
+client = cyrionai.CyrionAI(api_key="your-api-key")
+
+response = client.videos.generate(
+    model="pika-labs",
+    prompt="A nonprofit volunteer helping children in a community garden",
+    response_format="url"
+)
+
+print(response.data[0].url)  # URL to the generated video
+```
+
+### Multiple Video Variations
+
+```python
+response = client.videos.generate(
+    model="pika-labs",
+    prompt="A diverse team working together on a community project",
+    n=3  # Generate 3 variations
+)
+
+for i, video in enumerate(response.data):
+    print(f"Video {i+1}: {video.url}")
+```
+
+## Parameters
+
+### Required Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `prompt` | string | Text description of the video you want to generate |
+
+### Optional Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `model` | string | "pika-labs" | The model to use for generation |
+| `response_format` | string | "url" | Response format ("url" or "b64_json") |
+| `user` | string | null | User identifier for tracking |
+
+## Supported Models
+
+### Pika Labs
+
+High-quality video generation with good motion and consistency:
+
+```python
+response = client.videos.generate(
+    model="pika-labs",
+    prompt="A peaceful scene of volunteers planting trees in a park"
+)
+```
+
+### Runway ML
+
+Advanced video generation with cinematic quality:
+
+```python
+response = client.videos.generate(
+    model="runway-ml",
+    prompt="A professional documentary-style video of a nonprofit team meeting"
+)
+```
+
+### Stable Video Diffusion
+
+Open-source video generation model:
+
+```python
+response = client.videos.generate(
+    model="stable-video-diffusion",
+    prompt="An artistic animation of community building and collaboration"
+)
+```
+
+## Video Specifications
+
+### Duration
+- Most models generate videos between 3-10 seconds
+- Duration varies by model and prompt complexity
+
+### Resolution
+- Standard resolution: 1024x576 (16:9 aspect ratio)
+- Some models support higher resolutions
+
+### Format
+- Output format: MP4
+- Compatible with most video players and platforms
+
+## Best Practices
+
+### 1. Write Clear, Action-Oriented Prompts
+
+```python
+# Good: Specific action and scene description
+prompt = "A group of volunteers actively planting trees in a community park, with people working together, natural lighting"
+
+# Avoid: Static or vague descriptions
+prompt = "People in a park"
+```
+
+### 2. Include Motion and Activity
+
+```python
+# Include movement and action
+prompt = "Children running and playing in a playground, with volunteers supervising, dynamic movement"
+
+# Specify camera movement
+prompt = "A slow pan across a community garden showing volunteers working, smooth camera movement"
+```
+
+### 3. Consider Visual Style and Atmosphere
+
+```python
+# Specify visual style
+prompt = "A cinematic shot of a nonprofit team meeting, professional lighting, modern office setting"
+
+# Include atmosphere and mood
+prompt = "A warm, welcoming scene of volunteers serving food at a community kitchen, soft lighting"
+```
+
+### 4. Use Appropriate Models for Different Styles
+
+```python
+# For realistic, documentary-style videos
+response = client.videos.generate(
+    model="runway-ml",
+    prompt="A professional documentary about a nonprofit's impact on the community"
+)
+
+# For artistic, creative videos
+response = client.videos.generate(
+    model="stable-video-diffusion",
+    prompt="An artistic animation showing the journey of community transformation"
+)
+```
+
+## Common Use Cases
+
+### Marketing and Promotion
+
+```python
+# Social media content
+response = client.videos.generate(
+    model="pika-labs",
+    prompt="An engaging social media video showing volunteers making a difference, upbeat music, modern style"
+)
+
+# Fundraising campaigns
+response = client.videos.generate(
+    model="runway-ml",
+    prompt="An emotional fundraising video showing the impact of donations, heartwarming scenes"
+)
+```
+
+### Educational Content
+
+```python
+# Training videos
+response = client.videos.generate(
+    model="pika-labs",
+    prompt="A professional training video for new volunteers, clear instructions, step-by-step process"
+)
+
+# Educational animations
+response = client.videos.generate(
+    model="stable-video-diffusion",
+    prompt="An educational animation explaining climate change, scientific accuracy, engaging visuals"
+)
+```
+
+### Event Documentation
+
+```python
+# Event highlights
+response = client.videos.generate(
+    model="runway-ml",
+    prompt="Highlights from a successful fundraising gala, elegant atmosphere, professional event coverage"
+)
+
+# Community events
+response = client.videos.generate(
+    model="pika-labs",
+    prompt="A community celebration showing people coming together, festive atmosphere, diverse crowd"
+)
+```
+
+## Response Formats
+
+### URL Format (Default)
+
+```python
+response = client.videos.generate(
+    model="pika-labs",
+    prompt="A beautiful sunset over mountains",
+    response_format="url"
+)
+
+video_url = response.data[0].url
+print(f"Video URL: {video_url}")
+```
+
+### Base64 Format
+
+```python
+response = client.videos.generate(
+    model="pika-labs",
+    prompt="A beautiful sunset over mountains",
+    response_format="b64_json"
+)
+
+import base64
+video_data = base64.b64decode(response.data[0].b64_json)
+
+with open("generated_video.mp4", "wb") as f:
+    f.write(video_data)
+```
+
+## Error Handling
+
+```python
+try:
+    response = client.videos.generate(
+        model="pika-labs",
+        prompt="A beautiful landscape video"
+    )
+except cyrionai.ContentPolicyError:
+    print("The prompt violates our content policy. Please revise.")
+except cyrionai.RateLimitError:
+    print("Rate limit exceeded. Please wait before making more requests.")
+except cyrionai.APIError as e:
+    print(f"API error: {e}")
+```
+
+## Content Policy
+
+CyrionAI has content policies to ensure responsible video generation:
+
+### Allowed Content
+- Professional and educational videos
+- Marketing and promotional content
+- Artistic and creative videos
+- Nonprofit and community-focused content
+
+### Prohibited Content
+- Harmful or violent content
+- Copyrighted material
+- Personal information
+- Inappropriate or offensive content
+
+## Response Format
+
+```python
+response = client.videos.generate(
+    model="pika-labs",
+    prompt="A beautiful sunset"
+)
+
+# Access response data
+print(response.created)  # Timestamp
+print(response.data[0].url)  # Video URL
+```
+
+## Examples
+
+### Volunteer Recruitment Video
+
+```python
+response = client.videos.generate(
+    model="pika-labs",
+    prompt="A dynamic recruitment video showing diverse volunteers making a positive impact, energetic atmosphere, modern style"
+)
+```
+
+### Impact Story Video
+
+```python
+response = client.videos.generate(
+    model="runway-ml",
+    prompt="A touching story video showing how donations help families in need, emotional impact, professional documentary style"
+)
+```
+
+### Educational Animation
+
+```python
+response = client.videos.generate(
+    model="stable-video-diffusion",
+    prompt="An educational animation about water conservation, colorful graphics, child-friendly, informative content"
+)
+```
+
+### Event Promotion
+
+```python
+response = client.videos.generate(
+    model="pika-labs",
+    prompt="An exciting promotional video for a charity run, participants running, community spirit, motivational atmosphere"
+)
+```
+
+## Integration Examples
+
+### Download and Save Video
+
+```python
+import requests
+
+response = client.videos.generate(
+    model="pika-labs",
+    prompt="A community garden video"
+)
+
+video_url = response.data[0].url
+
+# Download the video
+video_response = requests.get(video_url)
+with open("community_garden.mp4", "wb") as f:
+    f.write(video_response.content)
+```
+
+### Embed in Web Application
+
+```python
+# Generate video for web display
+response = client.videos.generate(
+    model="pika-labs",
+    prompt="A nonprofit impact video"
+)
+
+video_url = response.data[0].url
+
+# Use in HTML
+html_code = f"""
+<video width="640" height="360" controls>
+    <source src="{video_url}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+"""
+```
+
+### Batch Video Generation
+
+```python
+prompts = [
+    "Volunteers helping at a food bank",
+    "Children learning in an after-school program",
+    "Community members planting trees",
+    "A team meeting to plan fundraising events"
+]
+
+videos = []
+for prompt in prompts:
+    response = client.videos.generate(
+        model="pika-labs",
+        prompt=prompt
+    )
+    videos.append(response.data[0].url)
+    print(f"Generated video for: {prompt}")
+```
+
+## Performance Considerations
+
+### Generation Time
+- Video generation typically takes 30-120 seconds
+- Complex prompts may take longer
+- Generation time varies by model
+
+### Rate Limits
+- Video generation: 10 requests per minute
+- Plan accordingly for batch processing
+
+### Quality vs Speed
+- Higher quality models may take longer to generate
+- Consider your use case when choosing models
+
+## Next Steps
+
+- Learn about <Link href="/features/audio-transcription">audio transcription</Link>
+- Explore <Link href="/features/image-generation">image generation</Link>
+- Check out <Link href="/examples/video-examples">more video examples</Link>
+- View the <Link href="/api-reference/video-generation">API reference</Link>

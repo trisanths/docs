@@ -1,0 +1,204 @@
+---
+title: 'Authentication'
+description: 'Learn how to authenticate with the CyrionAI API'
+---
+
+## Overview
+
+CyrionAI uses API key authentication for all requests. Your API key serves as your identity and determines your access level and rate limits.
+
+## Getting Your API Key
+
+1. **Sign up** at our <Link href="https://app.cyrionlabs.com">application portal</Link>
+2. **Verify your nonprofit status** by providing required documentation
+3. **Receive your API key** instantly upon approval
+
+<Note>
+  API keys are generated automatically when your account is approved. You can regenerate your key at any time from your dashboard.
+</Note>
+
+## Using Your API Key
+
+Include your API key in the `Authorization` header of all requests:
+
+```bash
+Authorization: Bearer your-api-key-here
+```
+
+### Example Request
+
+```bash
+curl https://api.cyrionlabs.com/v1/chat/completions \
+  -H "Authorization: Bearer sk-1234567890abcdef" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-4o-mini",
+    "messages": [
+      {"role": "user", "content": "Hello!"}
+    ]
+  }'
+```
+
+## SDK Authentication
+
+### Python
+
+```python
+import cyrionai
+
+client = cyrionai.CyrionAI(api_key="sk-1234567890abcdef")
+```
+
+### Node.js
+
+```javascript
+const CyrionAI = require('cyrionai');
+
+const client = new CyrionAI({
+    apiKey: 'sk-1234567890abcdef'
+});
+```
+
+### Environment Variables
+
+For security, store your API key in environment variables:
+
+```bash
+# .env file
+CYRIONAI_API_KEY=sk-1234567890abcdef
+```
+
+```python
+# Python
+import os
+import cyrionai
+
+client = cyrionai.CyrionAI(api_key=os.getenv('CYRIONAI_API_KEY'))
+```
+
+```javascript
+// Node.js
+const CyrionAI = require('cyrionai');
+
+const client = new CyrionAI({
+    apiKey: process.env.CYRIONAI_API_KEY
+});
+```
+
+## Security Best Practices
+
+<Warning>
+  Never expose your API key in client-side code, public repositories, or logs.
+</Warning>
+
+### Do's ✅
+
+- Store API keys in environment variables
+- Use secure secret management systems
+- Rotate keys regularly
+- Monitor API usage for unusual activity
+- Use different keys for different environments (dev/staging/prod)
+
+### Don'ts ❌
+
+- Commit API keys to version control
+- Share keys in public forums or chat
+- Include keys in client-side JavaScript
+- Use the same key across multiple applications
+- Log API keys in application logs
+
+## API Key Management
+
+### Regenerating Your Key
+
+If you suspect your API key has been compromised:
+
+1. Go to your <Link href="https://app.cyrionlabs.com">dashboard</Link>
+2. Navigate to API Keys section
+3. Click "Regenerate Key"
+4. Update your applications with the new key
+
+<Note>
+  Regenerating your key will immediately invalidate the old key. Make sure to update all applications before regenerating.
+</Note>
+
+### Key Permissions
+
+API keys have the following permissions:
+
+- **Read access** to your account information
+- **Write access** to create completions, images, videos, and transcriptions
+- **Admin access** (if granted) to manage users and grants
+
+## Rate Limits
+
+Your API key determines your rate limits:
+
+| Endpoint | Rate Limit |
+|----------|------------|
+| Chat Completions | 100 requests/minute |
+| Image Generation | 20 requests/minute |
+| Video Generation | 10 requests/minute |
+| Audio Transcription | 50 requests/minute |
+
+<Note>
+  Rate limits are per API key. Contact us if you need higher limits for your use case.
+</Note>
+
+## Error Responses
+
+### Invalid API Key (401)
+
+```json
+{
+  "error": {
+    "message": "Invalid API key",
+    "type": "invalid_request_error",
+    "code": "invalid_api_key"
+  }
+}
+```
+
+### Missing API Key (401)
+
+```json
+{
+  "error": {
+    "message": "No API key provided",
+    "type": "invalid_request_error",
+    "code": "missing_api_key"
+  }
+}
+```
+
+### Rate Limit Exceeded (429)
+
+```json
+{
+  "error": {
+    "message": "Rate limit exceeded",
+    "type": "rate_limit_error",
+    "code": "rate_limit_exceeded"
+  }
+}
+```
+
+## Testing Your Authentication
+
+You can test your API key by making a simple request to the models endpoint:
+
+```bash
+curl https://api.cyrionlabs.com/v1/models \
+  -H "Authorization: Bearer your-api-key"
+```
+
+If successful, you'll receive a list of available models. If there's an authentication issue, you'll get an error response.
+
+## Need Help?
+
+If you're having trouble with authentication:
+
+- Check that your API key is correct and not expired
+- Ensure you're using the correct header format (`Bearer your-key`)
+- Verify your account is active and not suspended
+- Contact <Link href="mailto:support@cyrionlabs.com">support</Link> for assistance
